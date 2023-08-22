@@ -1,0 +1,26 @@
+version: "3.9"
+   
+services:
+  # jupyter:
+  #   build: ./
+  #   ports:
+  #     - "8888:8888"
+  #   volumes:
+  #     - ./notebooks:/home/jovyan/
+  #   environment:
+  #     JUPYTER_ENABLE_LAB: "yes"
+  #   command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
+
+  dash_app:
+    build: ./
+    container_name: dash_app
+    environment:
+      FLASK_ENV: development
+      FLASK_APP: app/app
+      FLASK_RUN_HOST: "0.0.0.0"
+      FLASK_RUN_PORT: "80"
+    ports:
+      - "80:80"
+    volumes:
+      - "${PWD}:/app"
+    command: ["flask", "run"]
